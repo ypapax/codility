@@ -10,6 +10,18 @@ import "log"
 // fmt.Println("this is a debug message")
 
 func Solution(A []int, K, L int) int {
+	// when Alice is to the left of Bob
+	max1 := getMaxApples(A, K, L)
+	// when Bob is to the left of Alice
+	max2 := getMaxApples(A, L, K)
+	if max1 > max2 {
+		return max1
+	}
+	return max2
+
+}
+
+func getMaxApples(A []int, K, L int) int {
 	var maxApples = -1
 	if K <= 0 || L <= 0 {
 		return maxApples

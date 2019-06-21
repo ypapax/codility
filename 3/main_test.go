@@ -26,3 +26,13 @@ func TestSolution2(t *testing.T) {
 	act := Solution(inp, k, l)
 	as.Equal(exp, act)
 }
+
+func TestSolution3(t *testing.T) {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+	as := assert.New(t)
+	inp := []int{1, 1, 1, 100, 1}
+	k, l := 3, 1
+	exp := 103
+	act := Solution(inp, k, l)
+	as.Equal(exp, act)
+}
