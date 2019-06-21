@@ -7,37 +7,41 @@ package solution1
 // you can write to stdout for debugging purposes, e.g.
 // fmt.Println("this is a debug message")
 
+const diceSum = 7
+
 func Solution(A []int) int {
 	if len(A) == 0 {
 		return 0
 	}
 	// write your code in Go 1.4
-	var countM = make(map[int]int)
+	var unique = make(map[int]int)
 	for _, v := range A {
-		countM[v]++
+		unique[v]++
 	}
-	var popularCount = 0
-	var popularVal = 0
-	for k, v := range countM {
-		if v > popularCount {
-			popularCount = v
-			popularVal = k
-		}
-	}
+	var minRot = -1
 
-	var totalRotations = 0
-	for _, v := range A {
-		if v == popularVal {
+	for popularVal := range unique {
+		var totalRotations = 0
+		for _, v := range A {
+			if v == popularVal {
+				continue
+			}
+			rotations := rotate(v, popularVal)
+			totalRotations += rotations
+		}
+		if minRot < 0 {
+			minRot = totalRotations
 			continue
 		}
-		rotations := rotate(v, popularVal)
-		totalRotations += rotations
+		if totalRotations < minRot {
+			minRot = totalRotations
+		}
 	}
-	return totalRotations
+	return minRot
 }
 
 func rotate(from, to int) (rotations int) {
-	if from+to == 7 {
+	if from+to == diceSum {
 		return 2
 	}
 	return 1
